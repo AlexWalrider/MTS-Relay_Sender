@@ -1,0 +1,108 @@
+a:1:{s:5:"form1";a:15:{s:8:"--fmedit";a:1:{s:6:"onshow";s:157:"$numbers = file_get_contents ("numbers.txt");
+c("listBox1")->text = $numbers;
+
+$numarch = file_get_contents ("numarch.txt");
+c("memo2")->text = $numarch;";}s:6:"label2";N;s:6:"timer1";a:1:{s:7:"ontimer";s:773:"
+$count = c("listBox1")->items->count;
+$numc = c("label3")->text;
+$file = c("memo2")->text;
+$file2 = c("memo1")->text;
+///////////////////////////////
+if ($numc != $count)
+{
+c("listBox1")->itemIndex = $numc;
+$list = c("listBox1")->items->selected;
+$list2 = str_replace ("+", "", $list);
+if(preg_match("($list2)", $file))
+{
+}
+else
+{
+$memo = c("memo1")->text;
+$fmem = "$memo\n$list";
+////////////////
+if(preg_match("($list2)", $file2))
+{
+}
+else
+{
+if ($memo == "")
+{
+c("memo1")->text = $list;
+c("listBox2")->inText = "$list2";
+}
+else
+{
+c("memo1")->text = $fmem;
+c("listBox2")->inText = "$list2";
+}
+}
+////////////////
+}
+$numc = $numc+1;
+c("label3")->text = $numc;
+}
+else
+{
+c("timer1")->enable = false;
+}
+/////////////////////////////";}s:7:"button2";a:1:{s:11:"onmousedown";s:174:"$txt = c("memo1")->text;
+$txt = str_replace ("+", "", $txt);
+$txt = "\n$txt";
+$fp = fopen("numarch.txt", "a+");
+fwrite($fp, $txt);
+fclose($fp);
+MessageBox("DONE!", "");";}s:7:"button1";a:1:{s:11:"onmousedown";s:62:"clipboard_settext(c("memo1")->text);
+MessageBox("DONE!", "");";}s:8:"listbox2";N;s:6:"timer2";a:1:{s:7:"ontimer";s:661:"$hashpwd = "";
+$login = "";
+$kav = '"';
+$message = c("edit1")->text;
+$file = "mcsend.txt";
+$count = c("listBox2")->items->count;
+$numc = c("label6")->text;
+///////////////////////////////
+if ($numc != $count)
+{
+c("listBox2")->itemIndex = $numc;
+$list = c("listBox2")->items->selected;
+///////////////workspace///////
+$mainstr = "mc.exe $login $hashpwd $list $kav$message$kav";
+exec ("$mainstr");
+$forlist = "\n$list";
+file_put_contents($file, $forlist, FILE_APPEND);
+//////////////////////////////
+$numc = $numc+1;
+c("label6")->text = $numc;
+}
+else
+{
+c("timer2")->enable = false;
+echo ("send complete");
+}
+/////////////////////////////";}s:7:"button3";a:1:{s:11:"onmousedown";s:27:"c("timer2")->enable = true;";}s:6:"image2";N;s:7:"button4";a:1:{s:11:"onmousedown";s:38:"c("Form1")->windowState = wsMinimized;";}s:7:"button5";a:1:{s:11:"onmousedown";s:206:"$hashpwd = "";
+$login = "";
+$kav = '"';
+$message = c("edit3")->text;
+$list = c("edit2")->text;
+
+$mainstr = "mc.exe $login $hashpwd $list $kav$message$kav";
+exec ("$mainstr");
+echo ("Message sent!");";}s:7:"button6";a:1:{s:11:"onmousedown";s:19:"Run("numbers.txt");";}s:7:"button7";a:1:{s:11:"onmousedown";s:19:"Run("numarch.txt");";}s:7:"button8";a:1:{s:11:"onmousedown";s:18:"Run("mcsend.txt");";}s:7:"button9";a:1:{s:11:"onmousedown";s:628:"$date = date("m.d.y");
+$dir = "C:\\BackupDB\\mts\\$date\\";
+if (!is_dir($dir)) {
+    mkdir($dir);
+}
+copy ("numbers.txt", "C:\\BackupDB\\mts\\$date\\numbers.txt");
+copy ("mcsend.txt", "C:\\BackupDB\\mts\\$date\\mcsend.txt");
+copy ("numarch.txt", "C:\\BackupDB\\mts\\$date\\numarch.txt");
+/////////////////////////
+/*
+$dir2 = "C:\\BackupDB\\mts\\$date";
+if (!is_dir($dir2)) {
+    mkdir($dir2);
+}
+copy ("numbers.txt", "Y:\\BackupDB\\mts\\$date\\numbers.txt");
+copy ("mcsend.txt", "Y:\\BackupDB\\mts\\$date\\mcsend.txt");
+copy ("numarch.txt", "Y:\\BackupDB\\mts\\$date\\numarch.txt");*/
+
+echo ("Backup complete!");";}}}
